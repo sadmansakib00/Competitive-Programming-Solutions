@@ -1,0 +1,7 @@
+Case 1: 5
+Case 2: 135
+Case 3: 177
+Case 4: 106
+Case 5: 445
+Case 6: 94
+Case 7: 910298
