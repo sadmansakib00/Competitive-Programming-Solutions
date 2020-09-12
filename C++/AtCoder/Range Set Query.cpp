@@ -24,34 +24,29 @@ using namespace std;
 #define PI acos(-1.0)
 #define N 500001
 
+int blockSize;
+
 struct query {
     int l,r,idx;
     bool operator<(query other) const {
-        return make_pair(l,r) <
-                make_pair(other.l,other.r);
+        if(l/blockSize != other.l/blockSize) return l<other.l;
+        return (l/blockSize&1) ? (r<other.r) : (r>other.r);
     }
 };
 
-map<int,int> aBlock;
-vector<int> clr(N);
+vector<int> clr(N),appeared(N);
+int tempAns = 0;
 
 void rmv(int idx) {
-    /*
-    auto it = aBlock.find(clr[idx]);
-    if(it->ss==1) aBlock.erase(it);
-    else it->ss = it->ss-1;
-    */
-    if(aBlock[clr[idx]]==1) {
-        aBlock.erase(clr[idx]);
-    } else {
-        aBlock[clr[idx]]--;
-    }
+    appeared[clr[idx]]--;
+    if(!appeared[clr[idx]]) tempAns--;
 }
 void add(int idx) {
-    aBlock[clr[idx]]++;
+    if(!appeared[clr[idx]]) tempAns++;
+    appeared[clr[idx]]++;
 }
 int get_ans() {
-    return aBlock.size();
+    return tempAns;
 }
 
 vector<int> mosAlgo(vector<query> queries) {
@@ -93,6 +88,7 @@ int main() {
 
     int n,q,l,r;
     cin >> n >> q;
+    blockSize = sqrt(n);
     vector<query> queries(q);
     For(0,n) {
         cin >> clr[i];
