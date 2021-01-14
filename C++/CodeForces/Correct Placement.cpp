@@ -37,27 +37,34 @@ int main() {
     cin >> t;
     while(t-- > 0) {
         cin >> n;
-        vector<PII> vm,vh,vw;
+        vector<PII> vm;
+        vector<pair<int,pair<int,int>>> vh,vw;
         For(0,n) {
             cin >> h >> w;
             vm.pb({h,w});
-            vh.pb({h,w});
-            vw.pb({w,h});
+            vh.pb({h,{w,i+1}});
+            vw.pb({w,{h,i+1}});
         }
         sort(vh.begin(),vh.end());
         sort(vw.begin(),vw.end());
         int vhMin[n],vwMin[n];
-        vhMin[0] = vh[0].ss;
-        vwMin[0] = vw[0].ss;
+        vhMin[0] = vh[0].ss.ff;
+        vwMin[0] = vw[0].ss.ff;
         For(1,n) {
-            if(vh[i].ss<vhMin[i-1]) vhMin[i] = vh[i].ss;
+            if(vh[i].ss.ff<vhMin[i-1]) vhMin[i] = vh[i].ss.ff;
             else vhMin[i] = vhMin[i-1];
-            if(vw[i].ss<vwMin[i-1]) vwMin[i] = vw[i].ss;
+            if(vw[i].ss.ff<vwMin[i-1]) vwMin[i] = vw[i].ss.ff;
             else vwMin[i] = vwMin[i-1];
         }
         for(int i=0; i<n; i++) {
             bool flag = 0;
-
+            int ans=-1, lo=0, hi=n-1, mid;
+            while(lo<=hi) {
+                mid = lo+(hi-lo)/2;
+                if(vhMin[mid]<vm[i].ff) {
+                    mid =
+                }
+            }
         }
     }
 
