@@ -37,21 +37,80 @@ int main() {
     cin >> t;
     while(t-- > 0) {
         cin >> n;
-        int anArr[n], cons = 0, ans = 0, ansCons = 0;
+        int anArr[n], cons = 0, ansCons = 0, ans = 0, temp=0;
         For(0,n) cin >> anArr[i];
         For(1,n-1) {
             if(anArr[i]>anArr[i-1] && anArr[i]>anArr[i+1]) {
-                ans++, cons++;
+                ans++;
             } else if(anArr[i]<anArr[i-1] && anArr[i]<anArr[i+1]) {
-                ans++, cons++;
-            } else {
-                if(cons > ansCons) ansCons = cons;
-                cons = 0;
+                ans++;
             }
         }
-        if(cons>ansCons) ansCons = cons;
-        //cout << ansCons << "\n";
-        if(ansCons > 3) ansCons = 3;
+        //cout << "Pre ans = " << ans << "\n";
+        if(n<5) {
+            ans = 0;
+        } else {
+            for(int i=4; i<n; i++) {
+                cons = temp = 0;
+                if((anArr[i-3]>anArr[i-4] && anArr[i-3]>anArr[i-2]) ||
+                   (anArr[i-3]<anArr[i-4] && anArr[i-3]<anArr[i-2])) {
+                    cons++;
+                }
+                if((anArr[i-2]>anArr[i-3] && anArr[i-2]>anArr[i-1]) ||
+                   (anArr[i-2]<anArr[i-3] && anArr[i-2]<anArr[i-1])) {
+                    cons++;
+                }
+                if((anArr[i-1]>anArr[i-2] && anArr[i-1]>anArr[i]) ||
+                   (anArr[i-1]<anArr[i-2] && anArr[i-1]<anArr[i])) {
+                    cons++;
+                }
+                if((anArr[i-3]>anArr[i-4] && anArr[i-3]>anArr[i-1]) ||
+                   (anArr[i-3]<anArr[i-4] && anArr[i-3]<anArr[i-1])) {
+                    temp++;
+                }
+                if(temp==1) {
+                   if((anArr[i-1]>anArr[i-3] && anArr[i-1]>anArr[i]) ||
+                   (anArr[i-1]<anArr[i-3] && anArr[i-1]<anArr[i])) {
+                        temp = 1;
+                   } else {
+                        temp = 0;
+                   }
+                }
+
+                if(temp) {
+                    if((anArr[i-1]>anArr[i-2] && anArr[i-1]>anArr[i]) ||
+                       (anArr[i-1]<anArr[i-2] && anArr[i-1]<anArr[i])) {
+                        temp = 1;
+                    } else if(i>4) {
+                        if((anArr[i-4]>anArr[i-5] && anArr[i-4]>anArr[i-2]) ||
+                           (anArr[i-4]<anArr[i-5] && anArr[i-4]<anArr[i-2])) {
+                            temp++;
+                        } else {
+                            temp = 0;
+                        }
+                    } else {
+                        temp = 0;
+                    }
+                }
+                if(temp) {
+                    if((anArr[i-3]>anArr[i-4] && anArr[i-3]>anArr[i-2]) ||
+                       (anArr[i-3]<anArr[i-4] && anArr[i-3]<anArr[i-2])) {
+                        temp = 1;
+                    } else if(i<n-1) {
+                        if((anArr[i]>anArr[i-2] && anArr[i]>anArr[i+1]) ||
+                           (anArr[i]<anArr[i-2] && anArr[i]<anArr[i+1])) {
+                            temp = 1;
+                        } else {
+                            temp = 0;
+                        }
+                    } else {
+                        temp = 0;
+                    }
+                }
+                if(ansCons<cons-temp) ansCons = cons-temp;
+                //cout << "ansCons = " << ansCons << " cons = " << cons << " temp = " << temp << "\n";
+            }
+        }
         cout << ans-ansCons << "\n";
     }
 
