@@ -33,7 +33,31 @@ int main() {
         //freopen(opf,"w",stdout);
     #endif
 
-
+    int t,n,k;
+    cin >> t;
+    while(t-- > 0) {
+        cin >> n >> k;
+        int anArr[n];
+        For(0,n) cin >> anArr[i];
+        int l=0,r=n-1;
+        while(k>0 && l<r) {
+            if(k>anArr[l]) {
+                k -= anArr[l];
+                anArr[r] += anArr[l];
+                anArr[l] = 0;
+                l++;
+            } else {
+                anArr[l] -= k;
+                anArr[r] += k;
+                break;
+            }
+        }
+        For(0,n) {
+            if(i!=0) cout << " ";
+            cout << anArr[i];
+        }
+        cout << "\n";
+    }
 
     #ifdef EVAH
         //openFile(opf);

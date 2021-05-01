@@ -33,7 +33,28 @@ int main() {
         //freopen(opf,"w",stdout);
     #endif
 
-
+    int t,n;
+    cin >> t;
+    while(t-- > 0) {
+        cin >> n;
+        LL total=0,temp=0;
+        bool flag = 1;
+        for(int i=0; i<n; i++) {
+            cin >> temp;
+            if(temp>=i) {
+                temp -= i;
+                total += temp;
+            } else {
+                if(temp+total<i) {
+                    flag = 0;
+                } else {
+                    total = (total+temp-i);
+                }
+            }
+        }
+        if(flag) cout << "YES\n";
+        else cout << "NO\n";
+    }
 
     #ifdef EVAH
         //openFile(opf);

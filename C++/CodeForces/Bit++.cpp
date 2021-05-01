@@ -33,7 +33,17 @@ int main() {
         //freopen(opf,"w",stdout);
     #endif
 
-
+    int x = 0, ans = 0;
+    string s;
+    cin >> x;
+    while(x-- > 0) {
+        cin >> s;
+        bool flag = 0;
+        if(s[0]=='+' || s[2]=='+') flag = 1;
+        if(flag) ans++;
+        else ans--;
+    }
+    cout << ans << "\n";
 
     #ifdef EVAH
         //openFile(opf);
